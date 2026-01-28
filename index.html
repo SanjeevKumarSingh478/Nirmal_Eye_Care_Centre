@@ -1,255 +1,1064 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nirmal Eye Care Centre</title>
-  <meta name="description" content="Nirmal Eye Care Centre — 23+ years of experience in refraction, contact lens fitting, orthoptics, glaucoma, retina and comprehensive eye care. Book appointments online." />
-  <link rel="stylesheet" href="styles.css">
-  <script src="animations.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirmal Eye Care Centre — Premium Vision Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0b6ef6;
+            --primary-dark: #0754d1;
+            --accent: #32b8c6;
+            --dark-bg: #0a0e27;
+            --darker-bg: #050812;
+            --card-light: rgba(255, 255, 255, 0.08);
+            --card-lighter: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(11, 110, 246, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #a8b2c1;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, #0f1535 50%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(600px at 20% 50%, rgba(11, 110, 246, 0.15) 0%, transparent 80%),
+                radial-gradient(600px at 80% 80%, rgba(50, 184, 198, 0.15) 0%, transparent 80%);
+            animation: gradientShift 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating particles */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(11, 110, 246, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(50, 184, 198, 0.1) 1px, transparent 1px);
+            background-size: 400px 400px;
+            animation: particleFlow 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes particleFlow {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-100px) translateX(30px); }
+        }
+
+        /* Main container */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header with glassmorphism */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 14, 39, 0.6);
+            border-bottom: 1px solid var(--border-color);
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-book {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(11, 110, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-book::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(11, 110, 246, 0.5);
+        }
+
+        .btn-book:hover::before {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 100px;
+            padding: 6rem 2rem;
+            text-align: center;
+            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(11, 110, 246, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(50, 184, 198, 0.4));
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 40px rgba(11, 110, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-primary:hover::after {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 50px rgba(50, 184, 198, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(11, 110, 246, 0.15);
+            color: var(--accent);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(11, 110, 246, 0.25);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Invisible Cards Section */
+        .services-section {
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Invisible Card Style */
+        .card {
+            background: linear-gradient(135deg, var(--card-light), var(--card-lighter));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            animation: cardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes cardPop {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card:hover {
+            background: linear-gradient(135deg, rgba(11, 110, 246, 0.15), rgba(50, 184, 198, 0.1));
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(11, 110, 246, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 24px rgba(11, 110, 246, 0.4);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto 4rem;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--accent), transparent);
+            border-radius: 10px;
+            animation: timelineGrow 1.5s ease-out;
+        }
+
+        @keyframes timelineGrow {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+            to {
+                height: 100%;
+                opacity: 1;
+            }
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .timeline-dot {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 30px rgba(11, 110, 246, 0.5);
+            border: 3px solid var(--dark-bg);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(11, 110, 246, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(50, 184, 198, 0.7); }
+        }
+
+        .timeline-content {
+            width: 50%;
+            background: linear-gradient(135deg, var(--card-light), var(--card-lighter));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .timeline-content:hover::before {
+            transform: translateX(100%);
+        }
+
+        .timeline-content h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .timeline-content:hover {
+            background: linear-gradient(135deg, rgba(11, 110, 246, 0.15), rgba(50, 184, 198, 0.1));
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(11, 110, 246, 0.3);
+        }
+
+        /* Service Categories Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-category {
+            background: linear-gradient(135deg, var(--card-light), var(--card-lighter));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: categorySlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        }
+
+        @keyframes categorySlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .service-category:hover {
+            background: linear-gradient(135deg, rgba(11, 110, 246, 0.15), rgba(50, 184, 198, 0.1));
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(50, 184, 198, 0.3);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .category-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-category:hover .item-row {
+            color: var(--text-primary);
+            transform: translateX(5px);
+        }
+
+        .item-dot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(11, 110, 246, 0.4);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--card-light), var(--card-lighter));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(11, 110, 246, 0.05), rgba(50, 184, 198, 0.05));
+            border-radius: 20px;
+            margin: 2rem;
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, var(--card-light), var(--card-lighter));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-label {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .contact-info a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 8, 18, 0.8);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* Scroll animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: scrollReveal 0.8s ease-out forwards;
+        }
+
+        @keyframes scrollReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
-  <div id="ambient-bg" aria-hidden="true">
-    <span class="blob b1"></span>
-    <span class="blob b2"></span>
-    <span class="blob b3"></span>
-  </div>
-  <div class="container" role="main">
+    <!-- Header -->
     <header>
-      <div class="brand" aria-label="Clinic brand">
-        <div>
-          <div class="clinic-name">Nirmal Eye Care Centre</div>
-          <div class="clinic-sub">23+ years — Comprehensive Eye Care, Meerut</div>
-          <div class="clinic-sub">Establised in April 2012</div>
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">👁️</div>
+                <div>Nirmal Eye Care</div>
+            </a>
+            <nav class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#stats">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="btn-book">Book Appointment</button>
         </div>
-      </div>
-
-      <nav aria-label="Primary navigation" id="main-nav">
-        <a class="btn secondary" href="#services">Services</a>
-        <a class="btn secondary" href="#contact">Contact</a>
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScWywMcFIcwRERdZiptrsc0tvrngL1RHoYvMgIfmJGprcJ1nA/viewform?usp=header" id="book-top" target="_blank" rel="noopener noreferrer">Book Appointment</a>
-      </nav>
-      
-      <!-- Mobile menu button -->
-      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </header>
 
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="home-title" style="align-items: center; justify-content: center;">
-      <div id="hero-animation" aria-hidden="true"></div>
-
-      <div class="hero-grid content">
-        <h1 id="home-title">Nirmal Eye Care Centre</h1>
-        <p class="lead">Professional eye care with 23+ years of experience. Expert refraction, contact lens fitting (including Toric), orthoptics, glaucoma management and surgical assistance.</p>
-
-        <div class="hero-cta" style="margin: auto">
-          <a class="btn book-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScWywMcFIcwRERdZiptrsc0tvrngL1RHoYvMgIfmJGprcJ1nA/viewform?usp=header" target="_blank" rel="noopener noreferrer" aria-label="Book appointment (opens Google Form)">Book Appointment</a>
-          <a class="btn secondary" href="#services">View Services</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">See the World Clearly</h1>
+        <p class="hero-subtitle">Professional eye care with 23+ years of expertise. Precision, compassion, and cutting-edge solutions.</p>
+        <div class="hero-cta">
+            <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Book Now</button>
+            <button class="btn-secondary">Learn More</button>
+            <button class="btn-primary" onclick="window.location.href='https://www.google.com/search?sca_esv=dfd8ad97cdb7fcc2&authuser=2&sxsrf=ANbL-n71e1vvVZ0hcz4ozmffPcPXkRY7KQ:1769572474022&si=AL3DRZFIhG6pAqfNLal55wUTwygCG0fClF3UxiOmgw9Hq7nbWV2R17TEW8a-nQHr0HH2eF3oYf_30KoGZcDQbklYIzPN-TcOnCjjbNdxYH5BVcaAg6-dG0RPEzd3D6dixArmvjZ3Q7NYt5PdQUIbst7IkxguViAWEw%3D%3D&q=Nirmal+Eye+Care+Centre+Reviews&sa=X&ved=2ahUKEwjJrd-Vq62SAxWvSGwGHVtXMMYQ0bkNegQIOxAH&biw=1526&bih=871&dpr=1.25&aic=0';">Give us Review</button>
         </div>
-      </div>
     </section>
 
-    <!-- Services -->
-    <section id="services" aria-labelledby="services-title">
-      <div class="section-header">
-        <div>
-          <div class="h2" id="services-title">Our Services & Expertise</div>
-          <div class="lead-muted">Comprehensive eye care — designed for comfort and accuracy</div>
-        </div>
-        <div class="muted">Trusted • Gentle • Modern</div>
-      </div>
-
-      <div class="cards" role="list">
-        <!-- Card: Refraction -->
-        <article class="card" role="listitem" aria-labelledby="s1">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="0" y="0" width="24" height="24" rx="6" fill="#eaf4ff"/>
-            <path d="M4 12h16" stroke="#0b6ef6" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M12 6v12" stroke="#0754d1" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h3 id="s1">Refraction & Vision Testing</h3>
-            <p>Precise refraction to determine accurate prescriptions and visual performance.</p>
-          </div>
-        </article>
-
-        <!-- Contact Lens -->
-        <article class="card" role="listitem" aria-labelledby="s2">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="0" y="0" width="24" height="24" rx="6" fill="#e9f8f6"/>
-            <circle cx="12" cy="10" r="4" fill="#0b6ef6" opacity=".12"/>
-            <path d="M8 16c1.4-1 3-1.5 4-1.5s2.6.5 4 1.5" stroke="#0754d1" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h3 id="s2">Contact Lens Fitting</h3>
-            <p>Soft, rigid, and Toric lenses with personalized fitting and follow-up.</p>
-          </div>
-        </article>
-
-        <!-- Orthoptics -->
-        <article class="card" role="listitem" aria-labelledby="s3">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="0" y="0" width="24" height="24" rx="6" fill="#fff6e8"/>
-            <path d="M5 7c3 4 8 6 14 4" stroke="#0b6ef6" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M5 17c3-4 8-6 14-4" stroke="#0754d1" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h3 id="s3">Orthoptics & Vision Therapy</h3>
-            <p>Management of Binocular Vision problems, Amblyopia and eye movement disorders.</p>
-          </div>
-        </article>
-
-        <!-- Glaucoma -->
-        <article class="card" role="listitem" aria-labelledby="s4">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#f1f7ff"/>
-            <path d="M12 6v12" stroke="#0b6ef6" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M9.5 6c1.2-2 3.6-2 5 0" stroke="#0754d1" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h3 id="s4">Glaucoma Care</h3>
-            <p>Screening, monitoring and medical/surgical coordination  for glaucoma patients.</p>
-          </div>
-        </article>
-
-        <!-- Eye Camps -->
-        <article class="card" role="listitem" aria-labelledby="s6">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#f4fff8"/>
-            <path d="M4 10h16" stroke="#07a77a" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M8 16h8" stroke="#07a77a" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h3 id="s6">Eye Camps & Outreach</h3>
-            <p>Community screenings and free/low-cost camps to increase access to eye care.</p>
-          </div>
-        </article>
-
-        <!-- Surgical Assistance -->
-        <article class="card" role="listitem" aria-labelledby="s7">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#eef9ff"/>
-            <path d="M6 12h12" stroke="#0754d1" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M9 9v6" stroke="#0b6ef6" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <h3 id="s7">Surgical Assistance</h3>
-            <p>Pre-op evaluation, post-op follow-up and coordination with surgeons and hospitals.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-        <!-- Consultation Process -->
-            <article class="card" role="listitem" aria-labelledby="s5" style="max-width:400px; margin:auto; margin-top:2rem; box-shadow:0 2px 8px rgba(12,58,120,0.06);">
-              <div>
-                <h3 id="s5">Timings</h3>
-                <h4></h4>
-                <div>
-                  <p style="color: #0b6ef6; text-transform: uppercase;">Monday - Saturday <br> 4.00pm - 8.30pm</p>
-                  <p style="color: black; ">Sunday Closed</p>
+    <!-- Services Section - Timeline Layout -->
+    <section id="services" class="services-section">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Comprehensive eye care designed for your unique needs</p>
+        
+        <!-- Vertical Timeline -->
+        <div class="timeline">
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot">🔍</div>
                 </div>
-              </div>
-            </article>
+                <div class="timeline-content">
+                    <h3>Refraction & Vision Testing</h3>
+                    <p>Precise vision testing and accurate prescription determination for optimal visual performance. Our advanced refraction techniques ensure you see the world with perfect clarity.</p>
+                </div>
+            </div>
 
-    <!-- Book Appointment -->
-    <section id="book" aria-labelledby="book-title">
-      <div class="section-header">
-        <div>
-          <div class="h2" id="book-title">Book Appointment</div>
-          <div class="lead-muted">Quickly reserve a slot for the next week — open the booking form</div>
-        </div>
-        <div class="muted">Slots fill quickly — please arrive 10 minutes early</div>
-      </div>
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot">👓</div>
+                </div>
+                <div class="timeline-content">
+                    <h3>Contact Lens Fitting</h3>
+                    <p>Soft, rigid, and Toric lens fitting with expert guidance and personalized care. We specialize in finding the perfect lens solution tailored to your unique eye shape and lifestyle.</p>
+                </div>
+            </div>
 
-      <div class="book-area">
-        <div class="book-info" aria-hidden="false">
-          <strong>How it works</strong>
-          <p class="muted" style="margin-top:.4rem">
-            Tap Book Appointment to open our Google Form. The form lists available slots for the coming week and collects basic details. You will receive confirmation via phone call or message.
-          </p>
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot">🎯</div>
+                </div>
+                <div class="timeline-content">
+                    <h3>Orthoptics & Vision Therapy</h3>
+                    <p>Advanced vision therapy for eye alignment and binocular vision disorders. Specialized treatments for amblyopia, strabismus, and eye movement coordination issues.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot">🛡️</div>
+                </div>
+                <div class="timeline-content">
+                    <h3>Glaucoma Care & Management</h3>
+                    <p>Comprehensive screening, monitoring, and medical coordination for glaucoma management. Early detection and treatment to preserve your vision for life.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot">🏥</div>
+                </div>
+                <div class="timeline-content">
+                    <h3>Eye Camps & Community Outreach</h3>
+                    <p>Community outreach and free vision screening camps for accessible eye care. We believe quality eye care should be available to everyone in the community.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot">⚕️</div>
+                </div>
+                <div class="timeline-content">
+                    <h3>Surgical Assistance & Coordination</h3>
+                    <p>Comprehensive pre and post-operative care coordination with experienced surgical support.</p>
+                </div>
+            </div>
         </div>
 
-        <div style="text-align:center">
-          <a class="btn book-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScWywMcFIcwRERdZiptrsc0tvrngL1RHoYvMgIfmJGprcJ1nA/viewform?usp=header" target="_blank" rel="noopener noreferrer" aria-label="Open booking form (Google Forms)" style="box-shadow:0 2px 8px rgba(0, 96, 222, 0.9);">
-            Book Appointment
-          </a>
+        <!-- Service Categories Grid -->
+        <div class="services-grid" style="margin-top: 6rem;">
+
+            <div class="service-category scroll-reveal">
+                <div class="category-icon">🔬</div>
+                <div class="category-title">Diagnostic Services</div>
+                <div class="category-items">
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Comprehensive Eye Examination</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Glaucoma Screening</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Biometry & Lens Calculations</span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="service-category scroll-reveal">
+                <div class="category-icon">💎</div>
+                <div class="category-title">Premium Services</div>
+                <div class="category-items">
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Advanced Refraction Techniques</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Specialty Contact Lenses</span>
+                    </div>
+                    <!-- <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Retinal Imaging & Analysis</span>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="service-category scroll-reveal">
+                <div class="category-icon">👥</div>
+                <div class="category-title">Therapeutic Services</div>
+                <div class="category-items">
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Vision Therapy Programs</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Ortho Correction Training</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-dot"></span>
+                        <span>Low Vision Rehabilitation</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- Clinic summary & credentials -->
-    <section id="summary" aria-labelledby="summary-title">
-      <div class="section-header">
-        <div>
-          <div class="h2" id="summary-title">Clinic Summary</div>
-          <div class="lead-muted">A compact overview of our practice and credentials</div>
+    <!-- Stats Section -->
+    <section id="stats" class="stats-section">
+        <div class="stat-card scroll-reveal">
+            <div class="stat-number">23+</div>
+            <div class="stat-label">Years of Experience</div>
         </div>
-      </div>
-
-      <div class="summary" role="region" aria-label="Clinic summary">
-        <p><strong>Nirmal Eye Care Centre</strong> provides comprehensive outpatient eye care, diagnostics and coordination for surgical cases. We emphasize accurate refraction, contact lens safety, glaucoma monitoring, and advanced retina screening.</p>
-        <div class="credentials" aria-hidden="false" style="margin-top:.4rem">
-          <div class="cred" style="box-shadow:0 2px 8px rgba(12,58,120,0.1);">Certified Contact Lens Specialist</div>
+        <div class="stat-card scroll-reveal">
+            <div class="stat-number">10k+</div>
+            <div class="stat-label">Happy Patients</div>
         </div>
-      </div>
+        <div class="stat-card scroll-reveal">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Certified Specialists</div>
+        </div>
+        <div class="stat-card scroll-reveal">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Emergency Support</div>
+        </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-title">
-      <div class="section-header">
-        <div>
-          <div class="h2" id="contact-title">Contact & Location</div>
-          <div class="lead-muted">Reach out to schedule or ask questions</div>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title" style="margin-bottom: 3rem;">Get in Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-item scroll-reveal">
+                <div class="contact-icon">📍</div>
+                <div class="contact-label">Location</div>
+                <div class="contact-info">
+                    Rathi Complex, GP Block<br>
+                    Near I-Block Chauraha<br>
+                    Ganga Nagar, Meerut, UP
+                </div>
+            </div>
+            <div class="contact-item scroll-reveal">
+                <div class="contact-icon">📱</div>
+                <div class="contact-label">Contact</div>
+                <div class="contact-info">
+                    Phone: <a href="tel:+919412486090">+91-9412486090, +91-7452883230</a><br>
+                    Email: <a href="mailto:Sanjeev.478dr@gmail.com">Sanjeev.478dr@gmail.com</a>
+                </div>
+            </div>
+            <div class="contact-item scroll-reveal">
+                <div class="contact-icon">⏰</div>
+                <div class="contact-label">Hours</div>
+                <div class="contact-info">
+                    Mon-Sat: 4:00 PM - 8:30 PM<br>
+                    Sunday: Closed<br>
+                    Established: April 2012
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="contact-grid">
-        <div class="contact-card" role="article" aria-label="Contact information">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#eaf4ff"/>
-            <path d="M3 7h18M7 21V7" stroke="#0b6ef6" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <div style="font-weight:700">Nirmal Eye Care Centre</div>
-            <div class="muted" style="margin-top:.2rem">Location: Rathi Complex, GP Block, Near I-Block Chauraha, Ganga Nagar, Meerut, Uttar Pradesh</div>
-            <div class="muted" style="margin-top:.2rem">Phone: +91-9412486090</div>
-            <div class="muted" style="margin-top:.2rem">Email: Sanjeev.478dr@gmail.com</div>
-            <div class="muted" style="margin-top:.2rem">Hours: Mon–Sat 4.00pm-8.30pm</div>
-          </div>
-        </div>
-
-        <div class="contact-card" role="article" aria-label="Map / directions">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect width="24" height="24" rx="6" fill="#fff4e9"/>
-            <path d="M12 3v18" stroke="#d97706" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          <div>
-            <div style="font-weight:700">Get Directions</div>
-            <div class="muted" style="margin-top:.2rem">We are in Meerut. Tap the link to open location in maps (placeholder).</div>
-            <a class="btn secondary" href="https://www.google.com/maps/dir//G+P+Block+Road,+Ganga+Nagar,+Meerut,+Uttar+Pradesh+250001/@29.0050045,77.6724678,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x390c7acf8b67e3fd:0x8f92f85f97cd746e!2m2!1d77.7549101!2d29.0050111?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" style="margin-top:.5rem;display:inline-block">Open Map</a>
-          </div>
-        </div>
-      </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-      © <span id="year"></span> Nirmal Eye Care Centre — All rights reserved • Privacy & Terms
+        <p>&copy; 2025 Nirmal Eye Care Centre. All rights reserved. | <a href="#" style="color: var(--text-secondary); text-decoration: none;">Privacy Policy</a></p>
     </footer>
-  </div>
 
-  <script>
-    // Put current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // No splash behavior (removed)
-  </script>
+    <script>
+        // Intersection Observer for scroll reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'scrollReveal 0.8s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            observer.observe(el);
+        });
+
+        // Book appointment button
+        document.querySelectorAll('.btn-book, .btn-primary').forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.open('https://wa.me/917452883230?text=नमस्ते%2C%20मुझे%20Nirmal%20Eye%20Care%20Centre%20में%20अपॉइंटमेंट%20चाहिए।', '_blank');
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mouse parallax effect for cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+        // Floating animation for elements
+        let scrollPos = 0;
+        window.addEventListener('scroll', () => {
+            scrollPos = window.scrollY;
+            document.body.style.setProperty('--scroll', scrollPos + 'px');
+        });
+    </script>
 </body>
-
 </html>
-
-
